@@ -22,7 +22,7 @@ Future<String> createOrderMessage() async {
   }
 }
 
-/* Option 2: Future chaining, .then(cb, onError) | .catchError(cb) | whenComplete(doSomething)
+/* Option 2: Future chaining, .then(cb, onError) | .catchError(cb) | .whenComplete(doSomething)
  */
 Future<String> createOrderMessageCurry() async {
   return await Future.wait([fetchUserOrder(), fetchUserStore()]) // [order, store]
@@ -31,8 +31,6 @@ Future<String> createOrderMessageCurry() async {
 }
 
 Future<String> fetchUserOrder() =>
-    // Imagine that this function is
-    // more complex and slow.
     Future.delayed(
       const Duration(seconds: 1),
       () => 'Large Latte',
