@@ -10,7 +10,7 @@
  *  An asynchronous function performs at least one asynchronous operation and can also perform synchronous operations.
  */
 
-/* Option 1: async-await, try-catch
+/* Option 1: async-await, try-catch-finally
  */
 Future<String> createOrderMessage() async {
   try {
@@ -22,7 +22,7 @@ Future<String> createOrderMessage() async {
   }
 }
 
-/* Option 2: Future chaining
+/* Option 2: Future chaining, .then(cb, onError) | .catchError(cb) | whenComplete(doSomething)
  */
 Future<String> createOrderMessageCurry() async {
   return await Future.wait([fetchUserOrder(), fetchUserStore()]) // [order, store]
@@ -50,7 +50,7 @@ num counter = 0;
 Future<T> performanceLogger<T>(Future<T> Function() cb) async {
   print('Number $counter of trying started:');
   final num timeStart = DateTime.now().millisecondsSinceEpoch;
-  final res = await cb();
+  final T res = await cb();
   final num timeEnd = DateTime.now().millisecondsSinceEpoch;
   print('Number $counter of trying finished! Time elapsed in milliseconds: ${timeEnd - timeStart}');
   counter += 1;
